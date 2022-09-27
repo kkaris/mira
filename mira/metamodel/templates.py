@@ -583,7 +583,7 @@ class TemplateModelDelta:
 
     def _add_node(self, template: Template, tag: str) -> str:
         node_id = self._get_node_id(template, tag)
-        self.comparison_graph.add_node(node_id, color="yellow" if tag == "1" else "green")
+        self.comparison_graph.add_node(node_id, color="yellow" if tag == "1" else "pink")
         return node_id
 
     def _add_edge(
@@ -678,6 +678,10 @@ class TemplateModelDelta:
             Any key word arguments to provide to nx.draw
         """
         # draw graph
+        node_color = (
+            nx_kwargs.pop("node_color", None)
+            or nx.get_node_attributes(self.comparison_graph, "color").values()
+        )
         edge_color = (
             nx_kwargs.pop("edge_color", None)
             or nx.get_edge_attributes(self.comparison_graph, "color").values()
@@ -691,6 +695,7 @@ class TemplateModelDelta:
         nx.draw(
             G=self.comparison_graph,
             pos=pos,
+            node_color=node_color,
             edge_color=edge_color,
             width=list(width),
             with_labels=with_labels,
