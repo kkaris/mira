@@ -597,6 +597,8 @@ class TemplateModelDelta:
             field = getattr(template, field_name)
             if isinstance(field, Concept):
                 curie = ":".join(field.get_curie())
+                if "biomodel.species:biomd" in curie.lower():
+                    curie = "-"
 
                 context_list = []
                 if field.context:
@@ -613,6 +615,8 @@ class TemplateModelDelta:
                 inner_cc_list = []
                 for sub_concept in field:
                     curie = ":".join(sub_concept.get_curie())
+                    if "biomodel.species:biomd" in curie.lower():
+                        curie = "-"
 
                     # NOTE: Skip context for now (doesn't fit)
                     # context_list = []
