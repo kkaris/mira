@@ -334,7 +334,7 @@ def get_relations(
 
 @api_blueprint.post(
     "/relations_graph",
-    response_model=FileResponse,
+    response_model=None,
     tags=["relations"],
 )
 def get_relations_graph(
